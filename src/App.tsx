@@ -24,7 +24,7 @@ const App = () => {
           }}
         >
           <JavaScriptLogo />
-          <Typography variant="h2" component="h1" sx={{}}>
+          <Typography variant="h2" component="h1" sx={{ marginBottom: 4 }}>
             JavaScript Quiz
           </Typography>
         </Stack>
