@@ -21,10 +21,11 @@ const App = () => {
           justifyContent="center"
           sx={{
             marginTop: 4,
+            marginBottom: 4,
           }}
         >
           <JavaScriptLogo />
-          <Typography variant="h2" component="h1" sx={{ marginBottom: 4 }}>
+          <Typography variant="h2" component="h1">
             JavaScript Quiz
           </Typography>
         </Stack>
