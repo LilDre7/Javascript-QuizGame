@@ -37,6 +37,7 @@ export const useQuestionsStore = create<State>((set, get) => {
         isCorrectUserAnswer,
         userSelectedAnswer: answerIndex,
       };
+      // actualizamos el state
       set({ questions: newQuestions });
     },
   };

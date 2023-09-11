@@ -12,6 +12,27 @@ import SyntaxHighlighter from "react-syntax-highlighter";
 import { gradientDark } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 
 const Question = ({ info }: { info: QuestionType }) => {
+  const selectAnswer = useQuestionsStore((state) => state.selectAnswer);
+
+  const createHandleClick = (asnwerIndex: number) => () => {
+    selectAnswer(info.id, asnwerIndex);
+  };
+
+  const getBackgroundColor = (index: number) => {
+    const { userSelectedAnswer, correctAnswer } = info;
+    // Usuario no ha seleccionada nada todavia
+    if (index == null) return "trasnparente";
+    // Usuario ha seleccionado la respuesta correcta pero no ha seleccionado la respuesta correcta
+    if (index === correctAnswer && index !== userSelectedAnswer)
+      return "trasparent";
+    // Usuario ha seleccionado la respuesta correcta
+    if (index === correctAnswer) return "green";
+    // Usuario ha seleccionado la respuesta incorrecta
+    if (index === userSelectedAnswer) return "red";
+
+    return "trasparent"; // Usuario ha seleccionado la respuesta incorrecta y la respuesta correcta
+  };
+
   return (
     <Card
       variant="outlined"
@@ -34,7 +55,13 @@ const Question = ({ info }: { info: QuestionType }) => {
       <List sx={{ bgcolor: "#333", mt: 2 }} disablePadding>
         {info.answers.map((answer, index) => (
           <ListItem key={index} disablePadding divider>
-            <ListItemButton>
+            <ListItemButton
+              onClick={createHandleClick(index)}
+              disabled={false}
+              sx={{
+                backgroundColor: getBackgroundColor(index),
+              }}
+            >
               <ListItemText primary={answer} sx={{ textAlign: "center" }} />
             </ListItemButton>
           </ListItem>
@@ -47,6 +74,8 @@ const Question = ({ info }: { info: QuestionType }) => {
 const Game = () => {
   const questions = useQuestionsStore((state) => state.questions);
   const currentQuestion = useQuestionsStore((state) => state.currentQuestion);
+
+  console.log(questions);
 
   const questionInfo = questions[currentQuestion];
 
