@@ -1,4 +1,5 @@
 import {
+  Button,
   Card,
   IconButton,
   List,
@@ -75,15 +76,13 @@ const Question = ({ info }: { info: QuestionType }) => {
 };
 
 const Game = () => {
+  const resetGame = useQuestionsStore((state) => state.reset);
   const questions = useQuestionsStore((state) => state.questions);
   const currentQuestion = useQuestionsStore((state) => state.currentQuestion);
   const goNextQuestion = useQuestionsStore((state) => state.goNextQuestion);
   const goPreviousQuestion = useQuestionsStore(
     (state) => state.goPreviousQuestion
   );
-
-  console.log(questions);
-
   const questionInfo = questions[currentQuestion];
 
   return (
@@ -107,6 +106,21 @@ const Game = () => {
         >
           <i className="bx bxs-chevrons-right bx-tada"></i>
         </IconButton>
+        <Button
+          sx={{
+            color: "white",
+            backgroundColor: "#000",
+            border: "red",
+            gap: 2,
+            borderBottomColor: "#fff",
+          }}
+          variant="contained"
+          size="small"
+          onClick={resetGame}
+        >
+          <i className="bx bx-reset bx-tada"></i>
+          Reinicar Juego
+        </Button>
       </Stack>
       <Question info={questionInfo} />
     </>

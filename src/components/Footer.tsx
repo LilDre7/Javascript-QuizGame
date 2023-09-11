@@ -1,18 +1,7 @@
-import { useQuestionsStore } from "../store/questions";
+import { useQuestionsDate } from "../hooks/useQuestionDate";
 
 const Footer = () => {
-  const questions = useQuestionsStore((state) => state.questions);
-
-  let correct = 0;
-  let incorrect = 0;
-  let unanswered = 0;
-
-  questions.forEach((question) => {
-    const { userSelectedAnswer, correctAnswer } = question;
-    if (userSelectedAnswer == null) unanswered++;
-    else if (userSelectedAnswer === correctAnswer) correct++;
-    else incorrect++;
-  });
+  const { correct, incorrect, unanswered } = useQuestionsDate();
 
   return (
     <footer>
@@ -27,17 +16,17 @@ const Footer = () => {
         }}
       >
         <i
-          style={{ fontSize: "1.6rem" }}
+          style={{ fontSize: "1.6rem", color: "#15ff00" }}
           className="bx bx-badge-check bx-tada"
         ></i>
         {`${correct} correctas `}
         <i
-          style={{ fontSize: "1.6rem" }}
+          style={{ fontSize: "1.6rem", color: "#ff0000" }}
           className="bx bx-message-alt-x bx-tada bx-flip-horizontal"
         ></i>
         {`${incorrect} incorrectas `}
         <i
-          style={{ fontSize: "1.6rem" }}
+          style={{ fontSize: "1.6rem", color: "#2f00ff" }}
           className="bx bx-search-alt bx-tada"
         ></i>
         {`${unanswered} disponibles `}
