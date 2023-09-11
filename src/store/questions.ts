@@ -1,11 +1,14 @@
 import { create } from "zustand";
 import { type Question } from "../types/types";
+import confetti from "canvas-confetti";
 
 interface State {
   questions: Question[];
   currentQuestion: number;
   fetchQuestions: (limit: number) => void;
   selectAnswer: (questionId: number, answerIndex: number) => void;
+  goNextQuestion: () => void;
+  goPreviousQuestion: () => void;
 }
 
 export const useQuestionsStore = create<State>((set, get) => {
@@ -31,6 +34,13 @@ export const useQuestionsStore = create<State>((set, get) => {
       const questionInfo = newQuestions[questionIndex];
       // Averiguamos si el usuario ha seleccionado la respuesta correcta
       const isCorrectUserAnswer = questionInfo.correctAnswer === answerIndex;
+      if (isCorrectUserAnswer) {
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 },
+        });
+      }
       // actualizamos la respuesta de la pregunta
       newQuestions[questionIndex] = {
         ...questionInfo,
@@ -39,6 +49,26 @@ export const useQuestionsStore = create<State>((set, get) => {
       };
       // actualizamos el state
       set({ questions: newQuestions });
+    },
+
+    goNextQuestion: () => {
+      const { currentQuestion, questions } = get();
+      const nextQuestion = questions[currentQuestion + 1];
+      set({
+        currentQuestion: nextQuestion ? currentQuestion + 1 : currentQuestion,
+      });
+    },
+
+    goPreviousQuestion: () => {
+      const { currentQuestion } = get();
+      const previousQuestion = get().questions[currentQuestion - 1];
+
+      const newCurrentQuestion = previousQuestion
+        ? currentQuestion - 1
+        : currentQuestion;
+      set({
+        currentQuestion: newCurrentQuestion,
+      });
     },
   };
 });
