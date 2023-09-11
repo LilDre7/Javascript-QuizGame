@@ -39,6 +39,8 @@ export const useQuestionsStore = create<State>((set, get) => {
           particleCount: 100,
           spread: 70,
           origin: { y: 0.6 },
+          zIndex: 999,
+          colors: ["#00ff00", "#ff0000", "#ffff00", "#0000ff"],
         });
       }
       // actualizamos la respuesta de la pregunta

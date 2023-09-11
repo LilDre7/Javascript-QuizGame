@@ -4,6 +4,7 @@ import JavaScriptLogo from "./assets/JavaScriptLogo";
 import Start from "./components/Start";
 import { useQuestionsStore } from "./store/questions";
 import Game from "./components/Game";
+import Footer from "./components/Footer";
 
 const App = () => {
   const questions = useQuestionsStore((state) => state.questions);
@@ -32,6 +33,7 @@ const App = () => {
 
         {questions.length === 0 && <Start />}
         {questions.length > 0 && <Game />}
+        <Footer />
       </Container>
     </main>
   );

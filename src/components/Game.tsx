@@ -25,14 +25,14 @@ const Question = ({ info }: { info: QuestionType }) => {
     // Usuario no ha seleccionada nada todavia
     if (userSelectedAnswer == null) return "trasparent";
     // Usuario ha seleccionado la respuesta correcta pero no ha seleccionado la respuesta correcta
-    if (index === correctAnswer && index !== userSelectedAnswer)
-      return "trasparent";
+    if (index === correctAnswer && index !== userSelectedAnswer) return "green";
     // Usuario ha seleccionado la respuesta correcta
     if (index === correctAnswer) return "green";
     // Usuario ha seleccionado la respuesta incorrecta
     if (index === userSelectedAnswer) return "red";
+
     // Usuario ha seleccionado la respuesta incorrecta y la respuesta correcta
-    // if (index !== correctAnswer && index !== userSelectedAnswer) return "green";
+
     return "trasparent";
   };
 
